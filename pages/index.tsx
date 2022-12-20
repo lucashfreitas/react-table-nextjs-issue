@@ -1,12 +1,10 @@
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Layout from "../components/Layout";
-import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -15,9 +13,6 @@ type User = {
 };
 
 const IndexPage = () => {
-  const [globalFilter, setGlobalFilter] = useState("");
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
   const data: User[] = [
     {
       name: "John",
@@ -43,14 +38,6 @@ const IndexPage = () => {
   const table = useReactTable({
     data,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    state: {
-      columnFilters,
-      globalFilter,
-    },
-    onColumnFiltersChange: setColumnFilters,
-    onGlobalFilterChange: setGlobalFilter,
     columns: columns,
     debugTable: true,
     debugHeaders: true,
